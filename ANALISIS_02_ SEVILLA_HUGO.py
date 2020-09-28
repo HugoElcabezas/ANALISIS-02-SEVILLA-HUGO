@@ -17,39 +17,59 @@ print(df.head())
 tprint("info")
 print(df.info())
 
-# basarnos en valor final y generar nuevo DataFrame en base a Destino
-by_country = df.filter(['destination', 'total_value'], axis=1)
-by_country = by_country.rename(columns={"total_value": "VALOR_TOTAL"})
-tprint("By Destination")
-by_country = by_country.groupby('destination')
+by_country = df.filter(['direction','origin','destination','total_value'], axis=1)
+by_country = by_country.rename(columns={"direction":"DIRECCION","origin":"ORIGEN","destination":"DESTINO","total_value": "VALOR_TOTAL"})
 
-# Imprimir valor por suma
+by_country = by_country.groupby(['DIRECCION', 'ORIGEN', 'DESTINO'])
+tprint("groupby")
+print(by_country.head())
+
+#Imprimir valor por suma
 tprint("TOTAL SUMA")
-print(by_country.sum())
+print(by_country.sum().iloc[:60])
+print(by_country.sum().iloc[60:120])
+print(by_country.sum().iloc[120:180])
+print(by_country.sum().iloc[180:])
 
 # Imprimir por promedio
 tprint("PROMEDIO")
-print(by_country.mean())
+print(by_country.mean().iloc[:60])
+print(by_country.mean().iloc[60:120])
+print(by_country.mean().iloc[120:180])
+print(by_country.mean().iloc[180:])
+
+input('ENTER para continuar... ')
+os.system('cls' if os.name == 'nt' else 'clear')
 
 # imprimir por Desviación Estándar
 tprint("Desviacion")
 tprint("Estandar")
-print(by_country.std())
+print(by_country.std().iloc[:60])
+print(by_country.std().iloc[60:120])
+print(by_country.std().iloc[120:180])
+print(by_country.std().iloc[180:])
 
 # Imprimir por valor máximo
 tprint("VALOR MAXIMO")
-print(by_country.max())
+print(by_country.max().iloc[:60])
+print(by_country.max().iloc[60:120])
+print(by_country.max().iloc[120:180])
+print(by_country.max().iloc[180:])
 
 # Imprimir por valor máximo
 tprint("VALOR MINIMO")
-print(by_country.min())
+print(by_country.min().iloc[:60])
+print(by_country.min().iloc[60:120])
+print(by_country.min().iloc[120:180])
+print(by_country.min().iloc[180:])
 
 # Imprimir conteo
 tprint("CONTEO")
-print(by_country.count())
+print(by_country.count().iloc[:60])
+print(by_country.count().iloc[60:120])
+print(by_country.count().iloc[120:180])
+print(by_country.count().iloc[180:])
 
 # Imprimir descripción
 tprint("DESCRIPCION")
-print(by_country.describe().iloc[:,0:7])
-
-#by_country.plot.hist(bins=12, alpha=0.5)
+print(by_country.describe().transpose())
